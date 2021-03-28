@@ -44,7 +44,7 @@ crashlytics-build.properties
 fabric.properties
 .idea/httpRequests
 .idea/caches/build_file_checksums.ser
-*.d
+*.dist_vec_vec
 *.slo
 *.lo
 *.o

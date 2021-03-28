@@ -4,7 +4,25 @@
 using namespace std;
 
 int solution(int node_count, int s, int a, int b, vector<vector<int>> fare_vec) {
-  int output = 0;
+  vector<vector<int>> dist_vec_vec(node_count + 1, vector<int>(node_count + 1, 19900001));
+  for (auto fare : fare_vec) {
+    dist_vec_vec[fare[0]][fare[1]] = fare[2];
+    dist_vec_vec[fare[1]][fare[0]] = fare[2];
+  }
+  for (int i = 1; i <= node_count; i++) {
+    dist_vec_vec[i][i] = 0;
+  }
+  for (int i = 1; i <= node_count; i++) { // 중간
+    for (int j = 1; j <= node_count; j++) { // 출발
+      for (int k = 1; k <= node_count; k++) { // 도착
+        dist_vec_vec[j][k] = min(dist_vec_vec[j][k], dist_vec_vec[j][i] + dist_vec_vec[i][k]);
+      }
+    }
+  }
+  int output = 19900001;
+  for (int k = 1; k <= node_count; k++) {
+    output = min(output, dist_vec_vec[s][k] + dist_vec_vec[k][a] + dist_vec_vec[k][b]);
+  }
   return output;
 }
 
